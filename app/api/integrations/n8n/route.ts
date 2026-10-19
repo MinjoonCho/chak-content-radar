@@ -1,0 +1,4 @@
+import { NextResponse } from "next/server";
+import { buildN8nPayload } from "@/lib/integrations/n8n";
+import type { WorkspaceProject } from "@/lib/workspace/types";
+export async function POST(request: Request) { try { const webhook = process.env.N8N_WEBHOOK_URL; if (!webhook) return NextResponse.json({ error: "N8N_WEBHOOK_URL이 설정되지 않아 전달할 수 없습니다." }, { status: 503 }); const project = await request.json() as WorkspaceProject; const response = await fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(buildN8nPayload(project)), signal: AbortSignal.timeout(12_000) }); if (!response.ok) throw new Error(`n8n 전달 실패 (${response.status})`); return NextResponse.json({ delivered: true, deliveredAt: new Date().toISOString() }); } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "n8n 전달 실패" }, { status: 400 }); } }

@@ -1,0 +1,7 @@
+"use client";
+
+import type { ImageElement } from "@/lib/editor/scene";
+
+export function ImageInspector({ element, onChange, onUpload }: { element: ImageElement; onChange(patch: Partial<ImageElement>): void; onUpload(file: File): void }) {
+  return <div className="inspector-section"><h3>이미지</h3><label className="replace-image">이미지 교체<input type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => { const file = event.target.files?.[0]; if (file) onUpload(file); event.currentTarget.value = ""; }} /></label><div className="property-grid"><label><span>맞춤</span><select value={element.fit} onChange={(event) => onChange({ fit: event.target.value as ImageElement["fit"] })}><option value="cover">채우기</option><option value="contain">맞추기</option></select></label><label><span>모서리</span><input type="number" min="0" max="540" value={element.cornerRadius} onChange={(event) => onChange({ cornerRadius: Number(event.target.value) })} /></label><label><span>확대</span><input type="number" min="0.1" max="10" step="0.1" value={element.cropScale} onChange={(event) => onChange({ cropScale: Number(event.target.value) })} /></label><label><span>가로 위치</span><input type="number" min="-2" max="2" step="0.05" value={element.cropOffsetX} onChange={(event) => onChange({ cropOffsetX: Number(event.target.value) })} /></label><label><span>세로 위치</span><input type="number" min="-2" max="2" step="0.05" value={element.cropOffsetY} onChange={(event) => onChange({ cropOffsetY: Number(event.target.value) })} /></label></div><small>{element.asset.sourcePage}</small></div>;
+}

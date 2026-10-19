@@ -1,0 +1,33 @@
+instagram:
+  # 실제 계정명을 팀이 검수한 뒤 추가합니다. 예시 계정을 실제 데이터처럼 넣지 않습니다.
+  accounts:
+    admissions_information: []
+    student_media: []
+    study_creators: []
+    high_school_memes: []
+    benefit_curators: []
+  signals:
+    - top_posts
+    - recent_posts
+    - reels
+    - posting_frequency
+    - like_comment_velocity
+    - repeated_keywords
+    - repeated_formats
+    - recurring_questions
+  discovery_queries:
+    - 수능
+    - 고3
+    - 수험생
+    - 수험표 할인
+    - 수능 끝
+  access_policy:
+    prefer: official_api
+    allow_manual_public_review: true
+    allow_bulk_scraping: false
+
+youtube:
+  channels: []
+
+tiktok:
+  accounts: []

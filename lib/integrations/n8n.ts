@@ -1,0 +1,2 @@
+import type { WorkspaceProject } from "@/lib/workspace/types";
+export function buildN8nPayload(project: WorkspaceProject) { if (project.status !== "ready") throw new Error("게시 준비가 완료된 프로젝트만 전달할 수 있습니다."); return { event: "chak.project.ready", project: { id: project.id, title: project.title, caption: project.caption, hashtags: [...project.hashtags.core, ...project.hashtags.topic, ...project.hashtags.viral], sourceLinks: project.sourceLinks, slides: project.slides } }; }

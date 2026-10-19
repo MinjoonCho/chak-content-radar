@@ -1,0 +1,4 @@
+import assert from "node:assert/strict"; import test from "node:test"; import { buildN8nPayload } from "../lib/integrations/n8n"; import type { WorkspaceProject } from "../lib/workspace/types";
+const base = { version: 1, id: "p", topic: "t", title: "t", contentType: "info", template: "A", createdAt: "x", updatedAt: "x", slides: [], caption: "c", hashtags: { core: [], topic: [], viral: [] }, sourceLinks: [], evidence: [], imageSources: [], officialSourceAvailable: false, review: { copy: false, sources: false, images: false }, status: "draft" } satisfies WorkspaceProject;
+test("ready가 아니면 n8n 전달 payload를 만들지 않는다", () => assert.throws(() => buildN8nPayload(base), /게시 준비/));
+test("ready 프로젝트만 명시적 전달 payload를 만든다", () => assert.equal(buildN8nPayload({ ...base, status: "ready" }).event, "chak.project.ready"));
